@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import api from "./api"
+import {useEffect} from "react"
 
-function App() {
+const  App=()=> {
+  useEffect(()=>{
+    api.checkAPIHealth()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.error("checkAPIHealth", error);
+      });
+    
+    api.getModelsList()
+      .then(json => {
+        console.log(json)
+        json.forEach(el => {
+          api.getModelMetaData(el.id)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.error("getModelMetaData", error);
+      });
+        });
+      })
+      .catch(error => {
+        console.error('getModelsList', error);
+      });},[])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     
     </div>
   );
 }
