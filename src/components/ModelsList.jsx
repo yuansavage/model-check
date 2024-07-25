@@ -1,23 +1,25 @@
 import React from "react";
-import { useStore } from "./store";
-import { observer } from "mobx-react-lite";
+import { useStores } from "../stores/useStores";
+import { observer } from "mobx-react";
 
 const ModelList = observer(() => {
-  const store = useStore();
+    const { modelStore } = useStores();
+    const modelsList = modelStore.getModelsList();
 
-  return (
-    <div className="model-list">
-      {store.models.map((model, index) => (
-        <div
-          key={index}
-          onClick={() => store.selectModel(model)}
-          className="model-item"
-        >
-          {model.name}
+    return (
+        <div className="model-list">
+            {modelsList.map((model, index) => (
+                <div key={index} className="model-item">
+                    <img
+                        src={model.thumbnail}
+                        alt={`${model.description} thumbnail`}
+                        className="model-thumbnail"
+                    />
+                    <p>{model.description}</p>
+                </div>
+            ))}
         </div>
-      ))}
-    </div>
-  );
+    );
 });
 
 export default ModelList;

@@ -1,21 +1,20 @@
 import React from "react";
-import { useStore } from "./store";
-import { observer } from "mobx-react-lite";
+import { useStores } from "../stores/useStores";
+import { observer } from "mobx-react";
 
 const ModelData = observer(() => {
-  const store = useStore();
+    const { modelStore } = useStores();
 
-  if (!store.modelData) {
-    return <div className="model-data">Select a model to see details.</div>;
-  }
+    // if (!store.modelData) {
+    //   return <div className="model-data">Select a model to see details.</div>;
+    // }
 
-  return (
-    <div className="model-data">
-      <h2>{store.modelData.name}</h2>
-      <p>{store.modelData.description}</p>
-      {/* 添加更多模型數據顯示 */}
-    </div>
-  );
+    return (
+        <div className="model-data">
+            {/* <h2>{store.modelData.name}</h2>
+      <p>{store.modelData.description}</p> */}
+        </div>
+    );
 });
 
 export default ModelData;
