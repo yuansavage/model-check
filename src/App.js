@@ -1,38 +1,29 @@
-import './App.css';
-import api from "./api"
-import {useEffect} from "react"
+import {useEffect,useState} from "react";
+import ModelList from "./components/ModelsList";
+import ModelViewer from "./components/ModelViewer";
+import ModelData from "./components/ModelData";
+import { observer } from "mobx-react";
+import {useStores } from "./stores/useStores"
+import API from "./api";
+import "./App.css";
 
-const  App=()=> {
-  useEffect(()=>{
-    api.checkAPIHealth()
-      .then(res => {
-        console.log(res);
-      })
-      .catch(error => {
-        console.error("checkAPIHealth", error);
-      });
-    
-    api.getModelsList()
-      .then(json => {
-        console.log(json)
-        json.forEach(el => {
-          api.getModelMetaData(el.id)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(error => {
-        console.error("getModelMetaData", error);
-      });
-        });
-      })
-      .catch(error => {
-        console.error('getModelsList', error);
-      });},[])
+const App = observer(() => {
+  const {modelStore}  = useStores()
   return (
-    <div className="App">
-     
+    <div className="app">
+      <div className="left-panel">
+        <ModelList />
+      </div>
+      <div className="right-panel">
+        <div className="model-viewer-container">
+          <ModelViewer />
+        </div>
+        <div className="model-data-container">
+          <ModelData />
+        </div>
+      </div>
     </div>
   );
-}
+});
 
 export default App;
