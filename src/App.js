@@ -40,19 +40,29 @@ const App = observer(() => {
     }, []);
 
     return (
-        <div className="app">
-            <div className="left-panel">
-                <ModelList />
+        <>
+            <div className="banner-container">
+                <img
+                    className="banner"
+                    src="/banner/planarific.webp"
+                    alt="Banner"
+                />
             </div>
-            <div className="right-panel">
-                <div className="model-viewer-container">
-                    <ModelViewer />
+            <div className="app">
+                {" "}
+                <div className="left-panel">
+                    <ModelList />
                 </div>
-                <div className="model-data-container">
-                    <ModelData />
+                <div className="right-panel">
+                    <div className="model-viewer-container">
+                        <ModelViewer />
+                    </div>
+                    <div className="model-data-container">
+                        <ModelData />
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 });
 

@@ -15,7 +15,7 @@ const LoadModel = ({ position, error }) => {
         }
     });
     return (
-        <Torus args={[0.2, 0.02, 2, 100]} ref={torusRef} position={position}>
+        <Torus args={[5, 0.02, 32, 100]} ref={torusRef} position={position}>
             <meshBasicMaterial color={error ? "red" : "white"} />
         </Torus>
     );
@@ -26,11 +26,11 @@ const ModelViewer = observer(() => {
     const groupRef = useRef();
     const meshRef = useRef();
     const [gltf, setGltf] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const { modelStore } = useStores();
     const selectedModelId = modelStore.selectedModelId;
     const src = modelStore.getSelectedModel(selectedModelId);
-    console.log(src);
+
     useEffect(() => {
         if (src) {
             const dracoloader = new DRACOLoader().setDecoderPath(
@@ -39,6 +39,7 @@ const ModelViewer = observer(() => {
             const loader = new GLTFLoader();
             loader.setDRACOLoader(dracoloader);
             try {
+                setLoading(true);
                 loader.load(src, (model) => {
                     model.scene.userData.key =
                         selectedModelId + "-" + Math.random();
@@ -71,13 +72,15 @@ const ModelViewer = observer(() => {
             camera={{ position: [0, 20, 20], fov: 80, far: 500 }}
             className="model-viewer"
         >
+            <ambientLight intensity={1} />
             <directionalLight
-                intensity={0.5}
-                position={[0, 10, 0]}
-                rotation={[0, 1, 0]}
+                intensity={1}
+                position={[10, 10, 10]}
+                castShadow
             />
+            <pointLight intensity={0.8} position={[-10, 10, 10]} />
             {loading && <LoadModel position={[0, 0, 0]}></LoadModel>}
-            {gltf && (
+            {!loading && gltf && (
                 <group
                     ref={groupRef}
                     position={[0, 0, 0]}
