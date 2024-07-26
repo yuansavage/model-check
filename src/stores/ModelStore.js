@@ -7,21 +7,32 @@ class ModelStore {
     }
     modelsList = [];
     modelsData = [];
-    selectedModel = null;
-
-    selectedModelData = null;
+    selectedModelId = 0;
 
     setModelsList(list) {
         this.modelsList = list;
     }
     setModelsData(data) {
-        this.modelsData.push(data);
+        const exists = this.modelsData.some((item) => item.id === data.id);
+        if (!exists) {
+            this.modelsData.push(data);
+        }
+    }
+    setSelectedModel(id) {
+        this.selectedModelId = id;
     }
     getModelsList() {
         return this.modelsList;
     }
-    getSelectedModelData() {
-        return this.selectedModelData;
+    getSelectedModel(id) {
+        if (this.modelsData) {
+            return this.modelsData.model.filter((model) => model.id === id);
+        }
+    }
+    getSelectedModelData(id) {
+        if (this.modelsData) {
+            return this.modelsData.filter((model) => model.id === id);
+        }
     }
 }
 

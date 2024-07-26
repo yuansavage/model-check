@@ -15,7 +15,6 @@ const App = observer(() => {
                 if (res === "Everything is OK") {
                     API.getModelsList()
                         .then((modelsList) => {
-                            console.log(modelsList);
                             modelStore.setModelsList(modelsList);
                             modelsList.forEach((model) => {
                                 API.getModelMetaData(model.id)

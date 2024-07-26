@@ -5,11 +5,20 @@ import { observer } from "mobx-react";
 const ModelList = observer(() => {
     const { modelStore } = useStores();
     const modelsList = modelStore.getModelsList();
+    const selectModel = (id) => {
+        modelStore.setSelectedModel(id);
+    };
 
     return (
         <div className="model-list">
             {modelsList.map((model, index) => (
-                <div key={index} className="model-item">
+                <div
+                    key={index}
+                    className="model-item"
+                    onClick={() => {
+                        selectModel(model.id);
+                    }}
+                >
                     <img
                         src={model.thumbnail}
                         alt={`${model.description} thumbnail`}
