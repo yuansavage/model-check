@@ -9,6 +9,8 @@ import "./App.css";
 
 const App = observer(() => {
     const { modelStore } = useStores();
+    const selectedModelId = modelStore.selectedModelId;
+
     useEffect(() => {
         API.checkAPIHealth()
             .then((res) => {
@@ -55,10 +57,10 @@ const App = observer(() => {
                 </div>
                 <div className="right-panel">
                     <div className="model-viewer-container">
-                        <ModelViewer />
+                        <ModelViewer key={selectedModelId} />
                     </div>
                     <div className="model-data-container">
-                        <ModelData />
+                        <ModelData key={selectedModelId} />
                     </div>
                 </div>
             </div>
