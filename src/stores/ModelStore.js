@@ -26,7 +26,10 @@ class ModelStore {
     }
     getSelectedModel(id) {
         if (this.modelsData) {
-            return this.modelsData.model.filter((model) => model.id === id);
+            const selectedData = this.modelsData.filter(
+                (model) => model.id === id
+            )[0];
+            return selectedData && selectedData.model;
         }
     }
     getSelectedModelData(id) {
