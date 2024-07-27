@@ -57,10 +57,13 @@ const App = observer(() => {
                 </div>
                 <div className="right-panel">
                     <div className="model-viewer-container">
-                        <ModelViewer key={selectedModelId} />
+                        <ModelViewer
+                            key={selectedModelId}
+                            id={selectedModelId}
+                        />
                     </div>
                     <div className="model-data-container">
-                        <ModelData key={selectedModelId} />
+                        <ModelData key={selectedModelId} id={selectedModelId} />
                     </div>
                 </div>
             </div>

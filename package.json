@@ -12,6 +12,7 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "react-three-fiber": "^6.0.13",
+    "react-tooltip": "^5.27.1",
     "three": "^0.166.1",
     "web-vitals": "^3.0.4"
   },

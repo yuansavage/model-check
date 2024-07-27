@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useStores } from "../stores/useStores";
 import { observer } from "mobx-react";
 
-const ModelData = observer(() => {
+const ModelData = observer(({ id }) => {
     const [modelData, setModelData] = useState(null);
     const { modelStore } = useStores();
-    const selectedModelId = modelStore.selectedModelId;
 
     useEffect(() => {
-        if (selectedModelId) {
-            const data = modelStore.getSelectedModelData(selectedModelId);
+        if (id) {
+            const data = modelStore.getSelectedModelData(id);
             setModelData(data[0]);
         }
-    }, [selectedModelId]);
+    }, [id]);
 
     if (!modelData) {
         return <div className="model-data">Select a model to see details.</div>;
