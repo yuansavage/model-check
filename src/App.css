@@ -99,8 +99,13 @@
   overflow-y: auto;
   padding: 10px;
 }
+.model-detail {
+  display: flex;
+  flex-direction: row;
+}
 .model-data {
   display: flex;
+  width: 60%;
   flex-direction: column;
   padding: 16px;
   background-color: #f9f9f9;
@@ -123,4 +128,7 @@
   width: 150px;
   text-align: right;
   margin-right: 10px;
+}
+.map-data {
+  width: 40%;
 }
