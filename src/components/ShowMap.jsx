@@ -18,21 +18,23 @@ const ShowMap = ({ location }) => {
       antialias: true,
     });
 
-    // Geocode the address to get the coordinates
-    const geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-      location
-    )}.json?access_token=${mapboxgl.accessToken}`;
+    map.on("load", () => {
+      // Geocode the address to get the coordinates
+      const geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+        location
+      )}.json?access_token=${mapboxgl.accessToken}`;
 
-    fetch(geocodeUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.features && data.features.length > 0) {
-          const [longitude, latitude] = data.features[0].center;
-          map.setCenter([longitude, latitude]);
-          new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
-        }
-      })
-      .catch((error) => console.error("Error fetching geocode:", error));
+      fetch(geocodeUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.features && data.features.length > 0) {
+            const [longitude, latitude] = data.features[0].center;
+            map.setCenter([longitude, latitude]);
+            new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+          }
+        })
+        .catch((error) => console.error("Error fetching geocode:", error));
+    });
 
     // Clean up on unmount
     return () => map.remove();
